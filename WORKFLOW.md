@@ -26,6 +26,39 @@ This workflow fetches your social media posts from X/Twitter and Instagram, gene
 
 ---
 
+## Tools Breakdown: Apify vs Agent Reach
+
+| Platform | Tool | Why This Tool? | Actor/Command |
+|----------|------|----------------|---------------|
+| **Instagram** | **Apify** | Instagram blocks public scraping. Apify provides authenticated actors that bypass blocks. | `apify/instagram-post-scraper` |
+| **X/Twitter** | **Agent Reach** | Your X account is already authenticated via Agent Reach CLI. Direct API access with your cookies. | `twitter user-posts` |
+| **LinkedIn** | **TBD** | Could use either. LinkedIn API is restrictive; Apify has LinkedIn actors but requires login. | Coming soon |
+
+### When to Use Which:
+
+**Use Apify for:**
+- Platforms with strict anti-bot measures (Instagram, LinkedIn, Facebook, TikTok)
+- When you need structured data extraction (posts, comments, profiles)
+- Requires: `APIFY_TOKEN` in `.env`
+
+**Use Agent Reach for:**
+- Platforms where you're already authenticated (X/Twitter)
+- Direct API access using your browser cookies
+- Real-time data without third-party services
+- Requires: `TWITTER_AUTH_TOKEN` and `TWITTER_CT0` in `~/.bashrc`
+
+### Why Not Use Apify for X?
+- X/Twitter actors on Apify are paywalled or unreliable
+- Agent Reach uses YOUR authenticated session (more reliable)
+- No additional cost beyond Apify credits
+
+### Why Not Use Agent Reach for Instagram?
+- Instagram aggressively blocks server IPs
+- Agent Reach doesn't have dedicated Instagram scrapers
+- Apify actors handle rotation, authentication, and bypass techniques
+
+---
+
 ## Prerequisites
 
 ### 1. Environment Variables (Already Configured)
@@ -33,7 +66,7 @@ This workflow fetches your social media posts from X/Twitter and Instagram, gene
 Located in: `~/.openclaw/workspace/.env`
 
 ```bash
-APIFY_TOKEN=apify_api_xxxxxxxxxxxxxxxxxxxx  # Your Apify token
+APIFY_TOKEN=your_apify_token_here
 ```
 
 ### 2. X/Twitter Auth (Already Configured)
@@ -41,14 +74,13 @@ APIFY_TOKEN=apify_api_xxxxxxxxxxxxxxxxxxxx  # Your Apify token
 Located in: `~/.bashrc` and `~/.agent-reach/config.yaml`
 
 ```bash
-TWITTER_AUTH_TOKEN=your_auth_token_here
-TWITTER_CT0=your_ct0_token_here
+TWITTER_AUTH_TOKEN=57322a4254902b22b27a0b5c3d940b275ea2d68b
+TWITTER_CT0=0ddf4aa38af8cddf699f3370edea9c62a8a0c4ac92a2b99397b7a4cf43e7f9bc...
 ```
 
 ### 3. GitHub Access (Already Configured)
 
-Remote: `https://iamaryansinha:TOKEN@github.com/iamaryansinha/aagman-social-dashboard.git`  
-(Replace TOKEN with your GitHub personal access token)
+Remote: `https://iamaryansinha:TOKEN@github.com/iamaryansinha/aagman-social-dashboard.git`
 
 ---
 
@@ -140,8 +172,8 @@ bash ~/.openclaw/workspace/scripts/fetch_instagram_daily.sh
 
 ### Fetch X Only
 ```bash
-export TWITTER_AUTH_TOKEN="your_auth_token"
-export TWITTER_CT0="your_ct0_token"
+export TWITTER_AUTH_TOKEN="57322a4254902b22b27a0b5c3d940b275ea2d68b"
+export TWITTER_CT0="0ddf4aa38af8cddf699f3370edea9c62a8a0c4ac92a2b99397b7a4cf43e7f9bc0575a49a93739997361e549656a4a07c3b8161cf7520f57eb79f7248554e42bfd58475286954df6d7e70c0c57c2f1ed5"
 
 ~/.agent-reach-venv/bin/twitter user-posts tradewithaagman --max 300 --json \
   -o ~/.openclaw/workspace/social_posts/twitter/tradewithaagman_posts.json
