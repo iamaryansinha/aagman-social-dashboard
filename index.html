@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aagman Social Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0f;
+            color: #e4e4e7;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 2rem;
+            border-bottom: 1px solid #2d2d44;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header .subtitle {
+            color: #71717a;
+            font-size: 0.9rem;
+        }
+        
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            padding: 1.5rem 2rem;
+            background: #0f0f15;
+        }
+        
+        .stat-card {
+            background: #14141f;
+            border: 1px solid #2d2d44;
+            border-radius: 12px;
+            padding: 1.25rem;
+            transition: transform 0.2s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-2px);
+            border-color: #3d3d5c;
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            color: #71717a;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #fafafa;
+        }
+        
+        .stat-change {
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+        }
+        
+        .positive { color: #22c55e; }
+        .negative { color: #ef4444; }
+        .neutral { color: #71717a; }
+        
+        .platform-section {
+            padding: 2rem;
+            border-bottom: 1px solid #1f1f2e;
+        }
+        
+        .platform-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .platform-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .x-icon { background: #000; border: 1px solid #333; }
+        .ig-icon { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .li-icon { background: #0077b5; }
+        
+        .platform-title {
+            flex: 1;
+        }
+        .platform-title h2 {
+            font-size: 1.25rem;
+            color: #fafafa;
+        }
+        .platform-title p {
+            font-size: 0.85rem;
+            color: #71717a;
+        }
+        
+        .platform-stats {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .mini-stat {
+            text-align: center;
+        }
+        .mini-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fafafa;
+        }
+        .mini-stat-label {
+            font-size: 0.75rem;
+            color: #71717a;
+        }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .chart-card {
+            background: #14141f;
+            border: 1px solid #2d2d44;
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+        
+        .chart-title {
+            font-size: 0.9rem;
+            color: #a1a1aa;
+            margin-bottom: 1rem;
+        }
+        
+        .posts-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+        }
+        
+        .posts-table th {
+            text-align: left;
+            padding: 0.75rem;
+            color: #71717a;
+            font-weight: 500;
+            border-bottom: 1px solid #2d2d44;
+        }
+        
+        .posts-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #1f1f2e;
+        }
+        
+        .posts-table tr:hover {
+            background: #1a1a2e;
+        }
+        
+        .caption-cell {
+            max-width: 300px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #d4d4d8;
+        }
+        
+        .engagement-cell {
+            font-weight: 600;
+        }
+        
+        .date-cell {
+            color: #71717a;
+            font-size: 0.8rem;
+        }
+        
+        .type-badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .type-image { background: #1e3a5f; color: #60a5fa; }
+        .type-video { background: #3f1e3a; color: #f472b6; }
+        .type-sidecar { background: #1e3f2a; color: #4ade80; }
+        .type-tweet { background: #1f1f2e; color: #a1a1aa; }
+        
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #52525b;
+            font-size: 0.8rem;
+        }
+        
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            .platform-stats {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Aagman Social Dashboard</h1>
+        <p class="subtitle">Last updated: 2026-04-08 02:58 | Auto-refreshes daily</p>
+    </div>
+    
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="stat-label">Total Posts</div>
+            <div class="stat-value">15</div>
+            <div class="stat-change positive">+5 this week</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Total Engagement</div>
+            <div class="stat-value">143</div>
+            <div class="stat-change neutral">Likes + Comments</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Avg Engagement/Post</div>
+            <div class="stat-value">9.5</div>
+            <div class="stat-change positive">Last 30 days</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Active Platforms</div>
+            <div class="stat-value">1</div>
+            <div class="stat-change neutral">X • Instagram • LinkedIn</div>
+        </div>
+    </div>
+    
+    <!-- X/Twitter Section -->
+    <div class="platform-section">
+        <div class="platform-header">
+            <div class="platform-icon x-icon">𝕏</div>
+            <div class="platform-title">
+                <h2>X / Twitter</h2>
+                <p>@tradewithaagman • 0 posts • 24 followers</p>
+            </div>
+            <div class="platform-stats">
+                <div class="mini-stat">
+                    <div class="mini-stat-value">0</div>
+                    <div class="mini-stat-label">Likes</div>
+                </div>
+                <div class="mini-stat">
+                    <div class="mini-stat-value">0</div>
+                    <div class="mini-stat-label">Retweets</div>
+                </div>
+                <div class="mini-stat">
+                    <div class="mini-stat-value">0</div>
+                    <div class="mini-stat-label">Replies</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-title">Posts Over Time</div>
+                <canvas id="xChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <div class="chart-title">Engagement Trend</div>
+                <canvas id="xEngagementChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="chart-card" style="margin-top: 1.5rem;">
+            <div class="chart-title">Recent Posts</div>
+            <table class="posts-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Caption</th>
+                        <th>Likes</th>
+                        <th>Replies</th>
+                        <th>Retweets</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="5" style="text-align:center;color:#71717a;">No data yet</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Instagram Section -->
+    <div class="platform-section">
+        <div class="platform-header">
+            <div class="platform-icon ig-icon">📷</div>
+            <div class="platform-title">
+                <h2>Instagram</h2>
+                <p>@tradewithaagman • 15 posts • 24 followers</p>
+            </div>
+            <div class="platform-stats">
+                <div class="mini-stat">
+                    <div class="mini-stat-value">143</div>
+                    <div class="mini-stat-label">Likes</div>
+                </div>
+                <div class="mini-stat">
+                    <div class="mini-stat-value">24</div>
+                    <div class="mini-stat-label">Comments</div>
+                </div>
+                <div class="mini-stat">
+                    <div class="mini-stat-value">429</div>
+                    <div class="mini-stat-label">Est. Reach</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-title">Content Type Distribution</div>
+                <canvas id="igTypeChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <div class="chart-title">Engagement by Post Type</div>
+                <canvas id="igEngagementChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="chart-card" style="margin-top: 1.5rem;">
+            <div class="chart-title">Recent Posts</div>
+            <table class="posts-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Caption</th>
+                        <th>Likes</th>
+                        <th>Comments</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <td class="date-cell">2026-04-03</td>
+                        <td><span class="type-badge type-image">Image</span></td>
+                        <td class="caption-cell" title="Here is how Indian sectors moved from March 2 through April 2, as the US Iran conflict escalated and crude touched $115.
+
+The damage was concentrated in domestic credit plays. PSU banks led the collapse, falling harder than real estate developers, as FIIs unloaded ₹1.14 lakh crore in record monthly outflows. The selling hit every trading session of March.
+
+Auto and realty followed, both down near 12.5%, crushed by input cost spikes and working capital stress. FMCG, typically a defensive bunker, underperformed metals and energy, suggesting the market priced margin compression over volume resilience.
+
+IT was the only sector to close positive, absorbing domestic bid even as foreign selling continued. Pharma and energy showed relative stability, holding to single digit losses as crude volatility created both headwinds and hedges.">Here is how Indian sectors moved from March 2 through April 2, as the US Iran co...</td>
+                        <td class="engagement-cell">3</td>
+                        <td>0</td>
+                    </tr>
+
+                    <tr>
+                        <td class="date-cell">2026-04-02</td>
+                        <td><span class="type-badge type-sidecar">Carousel</span></td>
+                        <td class="caption-cell" title="Your grandfather got 4.76 rupees for his dollar.
+
+You get 94.
+
+The difference? Sixty years of slow bleed.
+1966 they announced the devaluation and got riots.
+
+1991 they announced it and got reforms.
+2026? 
+
+They just stopped defending. Let it hit 94. 
+
+No press conference. No apology.
+
+We mapped exactly how the forex market works, why the RBI let it fall this time, and who gets fucked vs who gets paid when the currency breaks.
+
+In our publication: '$1 = ₹94: The Devaluation India Didn't Announce'
+
+Link in bio.">Your grandfather got 4.76 rupees for his dollar.
+
+You get 94.
+
+The difference? S...</td>
+                        <td class="engagement-cell">4</td>
+                        <td>0</td>
+                    </tr>
+
+                    <tr>
+                        <td class="date-cell">2026-03-31</td>
+                        <td><span class="type-badge type-image">Image</span></td>
+                        <td class="caption-cell" title="One month since the Iran-Israel conflict.
+
+Every major equity market fell in March 2026. But the damage was uneven.
+
+Japan -11.8%
+India -11.3%
+Germany -10.3%
+US -8.2%
+UK -6.7%
+
+The spread tells a story about energy imports, currency moves, and who pays when oil shocks hit.
+
+Data: Yahoo Finance | Feb 27 - Mar 31, 2026">One month since the Iran-Israel conflict.
+
+Every major equity market fell in Mar...</td>
+                        <td class="engagement-cell">4</td>
+                        <td>0</td>
+                    </tr>
+
+                    <tr>
+                        <td class="date-cell">2026-03-31</td>
+                        <td><span class="type-badge type-sidecar">Carousel</span></td>
+                        <td class="caption-cell" title="Gold is crashing in New York 📉
+But booming in Mumbai 📈
+
+Same metal. Two markets.
+
+March 2026:
+West liquidated $21B
+East absorbed $13B
+
+Wall Street sold on rate fears.
+Mumbai bought on rupee fears.
+
+The divergence isn't geography.
+It's which currency you're afraid of losing.
+
+Data: World Gold Council, March 2026">Gold is crashing in New York 📉
+But booming in Mumbai 📈
+
+Same metal. Two markets....</td>
+                        <td class="engagement-cell">5</td>
+                        <td>0</td>
+                    </tr>
+
+                    <tr>
+                        <td class="date-cell">2026-03-27</td>
+                        <td><span class="type-badge type-sidecar">Carousel</span></td>
+                        <td class="caption-cell" title="Your grandfather sent $1,000 home in 1966. It became ₹4,760 and bought land.
+
+You send $1,000 today. It becomes ₹94,000 and pays three months rent.
+
+The headlines call 94 a crash. 
+
+It is the latest stop on a 60-year slide from 4.76 to today — through 1966, 1991, and the RBI's choice last week to let the market clear at 94 instead of burning reserves.
+
+The full breakdown of how the rupee got here, what the RBI's move means for your working capital, and who wins vs. loses at 94:
+
+Link in bio.
+
+#INR #Rupee #USDINR #Forex #RBI #IndianEconomy #BusinessHistory #AagmanEditorial
+#INR #Rupee #USDINR #Forex #RBI #IndianEconomy #BusinessHistory #AagmanEditorial">Your grandfather sent $1,000 home in 1966. It became ₹4,760 and bought land.
+
+Yo...</td>
+                        <td class="engagement-cell">3</td>
+                        <td>0</td>
+                    </tr>
+
+                    <tr>
+                        <td class="date-cell">2026-03-25</td>
+                        <td><span class="type-badge type-sidecar">Carousel</span></td>
+                        <td class="caption-cell" title="Gold just crashed 11.8% — its worst week since 1983.
+
+During an active war.
+While Hormuz was closed.
+While oil surged past $110.
+
+Everyone calls gold a "safe haven."
+
+Last week proved it's actually something else: collateral.
+
+When margin calls hit, you don't sell what you want. You sell what you can. And with gold up 70% on the year, funds sold their winner to plug their losers.
+
+This carousel breaks down the anatomy of a liquidity cascade:
+→ The $2.9B ETF exodus (smart money vs. forced selling)
+→ Powell's trap (why the Fed killed the bid)
+→ The 1983 parallel nobody mentions
+→ Why your "crisis hedge" works differently than you think
+Swipe for the full breakdown. Your understanding of "safe haven" is about to change.
+
+👇 Link in bio for the deep dive: 'Gold, Silver and War - A Living History'
+.
+.
+.
+#Gold #Commodities #Macro #Markets #Investing #Trading #Geopolitics #Finance #Economy #GoldPrice #SafeHaven #LiquidityCrisis #MarginCall #FedPolicy #MiddleEast #Hormuz #MarketAnalysis #Aagman #TradingStrategy #WealthManagement #AssetAllocation #MarketCrash #GoldInvesting #XAUUSD #PreciousMetals">Gold just crashed 11.8% — its worst week since 1983.
+
+During an active war.
+Whil...</td>
+                        <td class="engagement-cell">5</td>
+                        <td>1</td>
+                    </tr>
+
+                    <tr>
+                        <td class="date-cell">2025-10-31</td>
+                        <td><span class="type-badge type-video">Video</span></td>
+                        <td class="caption-cell" title="Two AIs. Same order. One paused. One didn’t, because fast isn’t always smart
+Meet Aagman - Your AI trading partner
+.
+.
+.
+.
+.
+Comment below, who traded smarter👇">Two AIs. Same order. One paused. One didn’t, because fast isn’t always smart
+Mee...</td>
+                        <td class="engagement-cell">22</td>
+                        <td>2</td>
+                    </tr>
+
+                    <tr>
+                        <td class="date-cell">2025-10-08</td>
+                        <td><span class="type-badge type-video">Video</span></td>
+                        <td class="caption-cell" title="$16.8 billion pulled out. $66 billion pumped in. Who’s really winning? Comment below👇 
+.
+.
+.
+Āagman - Your AI trading platform
+.
+.
+.
+[foreigninvestors, indiastockmarket, fiioutflow, indianstocks, rupee, markettrend, smartmoney, stockmarketindia, mutualfunds, foreigninvestment, marketupdate, financeindia, sensex, nifty, indianeconomy ]">$16.8 billion pulled out. $66 billion pumped in. Who’s really winning? Comment b...</td>
+                        <td class="engagement-cell">4</td>
+                        <td>0</td>
+                    </tr>
+
+                    <tr>
+                        <td class="date-cell">2025-10-03</td>
+                        <td><span class="type-badge type-video">Video</span></td>
+                        <td class="caption-cell" title="$15 trillion added in months. Strength… or bubble?
+What’s your take on this? Comment below👇
+.
+.
+.
+Aagman - Your AI trading platform.
+.
+.
+.
+[AI, bubble, market, rally, October, crash, stocks, trillion, FOMO, tech, investing, signal, noise, economy, history]">$15 trillion added in months. Strength… or bubble?
+What’s your take on this? Com...</td>
+                        <td class="engagement-cell">3</td>
+                        <td>0</td>
+                    </tr>
+
+                    <tr>
+                        <td class="date-cell">2025-09-25</td>
+                        <td><span class="type-badge type-video">Video</span></td>
+                        <td class="caption-cell" title="HSBC just dropped a bold target: Sensex 94,000 by 2026. Too optimistic or spot on?
+What’s your take on it? Comment below
+.
+.
+🚨Market updates by Āagman: Your AI Trading Partner.
+.
+.
+.
+[HSBC, Sensex target, Indian markets, stock market 2026, earnings growth, inflation easing, RBI rate cuts, policy reforms, global inflows, India equities]">HSBC just dropped a bold target: Sensex 94,000 by 2026. Too optimistic or spot o...</td>
+                        <td class="engagement-cell">2</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- LinkedIn Section -->
+    <div class="platform-section">
+        <div class="platform-header">
+            <div class="platform-icon li-icon">in</div>
+            <div class="platform-title">
+                <h2>LinkedIn</h2>
+                <p>Personal Profile • 0 posts • 0 connections</p>
+            </div>
+            <div class="platform-stats">
+                <div class="mini-stat">
+                    <div class="mini-stat-value">0</div>
+                    <div class="mini-stat-label">Reactions</div>
+                </div>
+                <div class="mini-stat">
+                    <div class="mini-stat-value">0</div>
+                    <div class="mini-stat-label">Comments</div>
+                </div>
+                <div class="mini-stat">
+                    <div class="mini-stat-value">0</div>
+                    <div class="mini-stat-label">Impressions</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-title">Post Performance</div>
+                <canvas id="liChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <div class="chart-title">Weekly Activity</div>
+                <canvas id="liWeeklyChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="chart-card" style="margin-top: 1.5rem;">
+            <div class="chart-title">Recent Posts</div>
+            <table class="posts-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Content</th>
+                        <th>Reactions</th>
+                        <th>Comments</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="5" style="text-align:center;color:#71717a;">No data yet</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Generated by Aagman Pipeline • Data refreshes daily at 9:00 AM IST</p>
+    </div>
+    
+    <script>
+        // Chart configurations will be injected here
+        
+        // Instagram Type Distribution
+        new Chart(document.getElementById('igTypeChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Image', 'Sidecar', 'Video'],
+                datasets: [{
+                    data: [2, 4, 9],
+                    backgroundColor: ['#60a5fa', '#f472b6', '#4ade80', '#fbbf24']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { position: 'right', labels: { color: '#a1a1aa' } } }
+            }
+        });
+        
+        // Instagram Engagement by Type
+        new Chart(document.getElementById('igEngagementChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Image', 'Sidecar', 'Video'],
+                datasets: [{
+                    label: 'Avg Likes',
+                    data: [3.5, 4.25, 13.222222222222221],
+                    backgroundColor: '#8b5cf6'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { ticks: { color: '#71717a' }, grid: { color: '#2d2d44' } },
+                    x: { ticks: { color: '#71717a' }, grid: { display: false } }
+                }
+            }
+        });
+        
+        // Placeholder charts for X and LinkedIn
+        new Chart(document.getElementById('xChart'), {
+            type: 'line',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                datasets: [{
+                    label: 'Posts',
+                    data: [2, 3, 1, 4],
+                    borderColor: '#fff',
+                    backgroundColor: 'rgba(255,255,255,0.1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { labels: { color: '#a1a1aa' } } },
+                scales: {
+                    y: { ticks: { color: '#71717a' }, grid: { color: '#2d2d44' } },
+                    x: { ticks: { color: '#71717a' }, grid: { display: false } }
+                }
+            }
+        });
+        
+        new Chart(document.getElementById('liChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+                datasets: [{
+                    label: 'Engagement',
+                    data: [12, 19, 8, 15, 22],
+                    backgroundColor: '#0077b5'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { ticks: { color: '#71717a' }, grid: { color: '#2d2d44' } },
+                    x: { ticks: { color: '#71717a' }, grid: { display: false } }
+                }
+            }
+        });
+    
+    </script>
+</body>
+</html>
