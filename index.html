@@ -242,6 +242,10 @@
         .type-video { background: #3f1e3a; color: #f472b6; }
         .type-sidecar { background: #1e3f2a; color: #4ade80; }
         .type-tweet { background: #1f1f2e; color: #a1a1aa; }
+        .type-quote { background: #3f2e1a; color: #fbbf24; }
+        .type-reply { background: #1a2e3f; color: #60a5fa; }
+        .type-retweet { background: #1e3f1e; color: #4ade80; }
+        .type-article { background: #3f1e3f; color: #f472b6; }
         
         .footer {
             text-align: center;
@@ -263,7 +267,7 @@
 <body>
     <div class="header">
         <h1>Aagman Social Dashboard</h1>
-        <p class="subtitle">Last updated: 2026-04-08 03:26 | Auto-refreshes daily</p>
+        <p class="subtitle">Last updated: 2026-04-08 03:38 | Auto-refreshes daily</p>
     </div>
     
     <div class="stats-row">
@@ -302,29 +306,6 @@
                     <div class="mini-stat-value">1,505</div>
                     <div class="mini-stat-label">Impressions</div>
                 </div>
-                <div class="mini-stat">
-                    <div class="mini-stat-value">11</div>
-                    <div class="mini-stat-label">Likes</div>
-                </div>
-                <div class="mini-stat">
-                    <div class="mini-stat-value">2</div>
-                    <div class="mini-stat-label">Retweets</div>
-                </div>
-                <div class="mini-stat">
-                    <div class="mini-stat-value">22</div>
-                    <div class="mini-stat-label">Replies</div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="charts-grid">
-            <div class="chart-card">
-                <div class="chart-title">Posts Over Time</div>
-                <canvas id="xChart"></canvas>
-            </div>
-            <div class="chart-card">
-                <div class="chart-title">Engagement Trend</div>
-                <canvas id="xEngagementChart"></canvas>
             </div>
         </div>
         
@@ -335,30 +316,29 @@
                 <thead>
                     <tr>
                         <th>Date</th>
+                        <th>Type</th>
                         <th>Caption</th>
                         <th>Impressions</th>
-                        <th>Likes</th>
-                        <th>Replies</th>
-                        <th>Retweets</th>
+                        <th>Link</th>
                     </tr>
                 </thead>
                 <tbody>
                     
                     <tr>
                         <td class="date-cell">Wed Mar 18</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="'Those who keep learning will keep rising in life.' — Charlie Munger
 
 Markets evolve. Strategies decay. The edge belongs to those who adapt.">'Those who keep learning will keep rising in life.' — Charlie Munger
 
 Markets ev...</td>
                         <td class="engagement-cell">22</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2034266205746573364" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Wed Mar 18</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="Top 5 oil consumers (barrels/day):
 
 🇺🇸 USA: 20.25 million (20% of world)
@@ -374,13 +354,12 @@ Source: EIA 2026 https://t.co/JqWQqAPvMS">Top 5 oil consumers (barrels/day):
 🇺🇸 USA: 20.25 million (20% of world)
 🇨🇳 Chin...</td>
                         <td class="engagement-cell">19</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2034125156717859152" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Tue Mar 31</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="Here's how major indices across the world have fared since the Iran Israel conflict:
 
 Nikkei 225 (Japan): -11.83% 
@@ -392,13 +371,12 @@ Dow Jones (US): -8.65%
 S&amp;P 500 (US): -8.18% 
 FTSE 100 (UK): -6.73% https://t.co/QHcC43CqTS">Here's how major indices across the world have fared since the Iran Israel confl...</td>
                         <td class="engagement-cell">292</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2039067307822264688" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Tue Mar 31</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="In New York, gold tracks real rates. 
 
 In Mumbai, it tracks currency stability. 
@@ -409,13 +387,12 @@ Two different liability hedges.">In New York, gold tracks real rates.
 
 In Mumbai, it tracks currency stability. ...</td>
                         <td class="engagement-cell">20</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2039058347048194162" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Tue Mar 31</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="One month. One shock. Three different gold markets.
 
 Wall Street traded rate risk. Beijing bought sanction insurance. Mumbai bought currency defense.
@@ -426,13 +403,12 @@ That's the March 2026 gold story.">One month. One shock. Three different gold ma
 
 Wall Street traded rate ris...</td>
                         <td class="engagement-cell">23</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2039058349107638312" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Tue Mar 31</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="Western institutions sold on rate fears.
 
 Iran → oil spike → dollar strength → inflation bets → liquidate gold.
@@ -441,13 +417,12 @@ Standard financial asset behavior. Rates up, gold down.">Western institutions so
 
 Iran → oil spike → dollar strength → i...</td>
                         <td class="engagement-cell">17</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2039058342673584572" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Tue Mar 31</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="West: $21.35B outflows vs $9.12B inflows.
 
 East: +$13.29B.
@@ -462,13 +437,12 @@ East: +$13.29B.
 
 Same month. Same Ira...</td>
                         <td class="engagement-cell">40</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2039058338282106962" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Tue Mar 31</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="The math is simple.
 
 For every $1 entering Western ETFs, $2.34 rushed out.
@@ -483,42 +457,38 @@ For every $1 entering Western ETFs, $2.34 rushed out.
 
 Nort...</td>
                         <td class="engagement-cell">2</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2039058340593152192" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Tue Mar 24</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="I wrote about the three channels China is using, which products are surging (semiconductors up 66.5%), and why this matters for anyone tracking global trade flows.
 
 https://t.co/t2VNopen3A">I wrote about the three channels China is using, which products are surging (sem...</td>
                         <td class="engagement-cell">19</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2036564070887989703" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Tue Mar 17</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="IDBI is back to being a PSU bank with PSU bank problems. No strategic buyer. No fresh capital. Just government ownership, slow decision-making, and the same NPA baggage. The 30% drop reflects that reality.">IDBI is back to being a PSU bank with PSU bank problems. No strategic buyer. No ...</td>
                         <td class="engagement-cell">15</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2033879808472715701" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Tue Mar 17</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="Investors bought IDBI banking on privatization premium. Without the deal, it's just another PSU bank. Stock fell from Rs 95 to Rs 77. Down 30% in a month. The 'privatization hope' premium just evaporated.">Investors bought IDBI banking on privatization premium. Without the deal, it's j...</td>
                         <td class="engagement-cell">15</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2033879804802678823" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Tue Mar 17</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="IDBI Bank just crashed 19% in 2 days.
 
 &gt; Rs 18,900 crore gone.
@@ -529,13 +499,12 @@ Here's what happened ↓ https://t.co/LVsvVOVArJ">IDBI Bank just crashed 19% in 
 &gt; Rs 18,900 crore gone.
 &gt; Why? The ...</td>
                         <td class="engagement-cell">22</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2033879791842300412" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Tue Apr 07</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="The jewellery Q4 numbers tell you everything about how gold price inflation hides volume contraction.
 
 Kalyan +45% SSSG. Senco +34%. PNGS Reva +139%. The headlines scream growth.
@@ -554,13 +523,12 @@ The Akshaya Tritiya read: Both companies called advance bookings "encouraging" b
 
 Bottom line: These are volume stories disguised as value stories. The SSSG metrics are tracking gold prices, not demand.">The jewellery Q4 numbers tell you everything about how gold price inflation hide...</td>
                         <td class="engagement-cell">39</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2041560742705746305" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Tue Apr 07</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="The Hormuz = Copper thread is directionally right but undersells the asymmetry.
 
 The number that matters: The DRC imported 89% of its sulfur from the Middle East in 2024. Not "a large chunk." Almost all of it.
@@ -580,13 +548,12 @@ What the price action suggests: Brent crude surged 30%+ on war news. Copper move
 The sulfur story is slower, less visible, and potentially longer-lasting than the oil story.">The Hormuz = Copper thread is directionally right but undersells the asymmetry.
 ...</td>
                         <td class="engagement-cell">14</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2041545735477542959" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Tue Apr 07</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="The consumption story isn't dead. It's unrecognizable to the people telling it.
 
 Bata, Page Industries, legacy retail — struggling for growth. Meanwhile D2C brands and "unheard of GenZ apps" gaining share without traditional distribution.
@@ -600,13 +567,12 @@ The incumbents built moats around shelf space and supply chain. The new entrants
 The "weak economy" narrative lets fund managers blame macros for missing that consumption moved from "brands your parents trusted" to "brands your friends started." The economy isn't weak. The measurement is outdated.">The consumption story isn't dead. It's unrecognizable to the people telling it.
 ...</td>
                         <td class="engagement-cell">11</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2041487125397549404" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Tue Apr 07</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title=""Destroyed charts with business fundas intact" is the most expensive sentence in investing.
 
 Small caps down 40-60% from peaks. Liquidity dried up. Then a 20% bounce in days on "hints of recovery."
@@ -617,13 +583,12 @@ Bajaj Finance in March 2020 dropped 60% in weeks. The business was fine. The sto
 
 Every cycle, investors confuse "business quality" with "stock price stability." The chart doesn't know the business. It only knows supply and demand. When forced sellers exhaust themselves, demand meets a vacuum. That's not bullish reversal. That's just the absence of sellers.">"Destroyed charts with business fundas intact" is the most expensive sentence in...</td>
                         <td class="engagement-cell">4</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2041486694306730345" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Tue Apr 07</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="Those three stages look linear on paper. Nobody shows the chart of people who quit during stage one.
 
 The ₹0 to ₹10L gap isn't measured in returns. It's measured in time without validation. Most never reach stage two because they confuse early luck with skill and double down on what stops working.
@@ -634,22 +599,20 @@ Stage one is about finding what works. Stage two is about stopping what doesn't.
 
 The people who reach stage three didn't find better stocks. They stopped needing the market to validate them every quarter.">Those three stages look linear on paper. Nobody shows the chart of people who qu...</td>
                         <td class="engagement-cell">14</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2041485713485816209" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Tue Apr 07</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="Read the full piece: https://t.co/gkc2tOCIHM">Read the full piece: https://t.co/gkc2tOCIHM</td>
                         <td class="engagement-cell">4</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2041424731212230705" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Tue Apr 07</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="In 1865, an economist observed that better steam engines made coal use rise, not fall. Efficiency expanded demand until it consumed more resources than it saved.
 
 Today, the same mechanism is hitting cognitive labor markets. But labor is not coal. It comes in layers. And the layers are splitting apart.
@@ -666,13 +629,12 @@ If the first rung automates before the senior tier restocks, where does the next
 
 We explored this fracture in full: the data, the three competing explanations, and the unresolved question facing labor markets.">In 1865, an economist observed that better steam engines made coal use rise, not...</td>
                         <td class="engagement-cell">9</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2041424728771227726" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Thu Mar 26</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="The market is changing hands.
 
 From foreign institutions to Indian households.
@@ -685,13 +647,12 @@ From foreign institutions to Indian households.
 
 ...</td>
                         <td class="engagement-cell">20</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2037079275657158813" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Thu Mar 26</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="Absorption is price-dependent, not infinite.
 
 When global funds need cash for redemptions, they sell what they can liquidate instantly. 
@@ -702,13 +663,12 @@ Nifty 50 is down roughly 10-12%. The selling has hit Financials, IT/Tech, and Oi
 
 When global funds need cash for re...</td>
                         <td class="engagement-cell">61</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2037079273270632909" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Thu Mar 26</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="₹850 crore every trading hour has left the Indian Stock Markets in March.
 
 &gt; Foreign investors have pulled overall ₹105,000 crore from India since March 2.
@@ -718,26 +678,24 @@ Come let's have a look at what's up! https://t.co/1fRE0CRcEv">₹850 crore every
 
 &gt; ...</td>
                         <td class="engagement-cell">46</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2037079260649971956" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Thu Mar 26</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="If transshipment keeps working this well, do tariffs even matter anymore?
 
 Or are we just reshuffling deck chairs while the ship changes course?">If transshipment keeps working this well, do tariffs even matter anymore?
 
 Or ar...</td>
                         <td class="engagement-cell">11</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2037067391256100883" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Thu Mar 19</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="We've mapped what happened to oil during the last 3 middle east conflicts.
 
 → 1973 Arab Oil Embargo
@@ -750,13 +708,12 @@ https://t.co/WOjyLmjvJ2">We've mapped what happened to oil during the last 3 mid
 
 → 19...</td>
                         <td class="engagement-cell">21</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2034772287585755548" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Thu Mar 19</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="🛑 4 weeks into the Iran-Israel conflict, Brent crude has risen roughly 75%.
 
 $67 baseline in February to $121 peak last week. Now hovering around $110.
@@ -765,37 +722,34 @@ $67 baseline in February to $121 peak last week. Now hovering around $110.
 
 $67...</td>
                         <td class="engagement-cell">24</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2034772285023035579" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Thu Mar 19</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="If transshipment keeps working this well, do tariffs even matter anymore?
 
 Or are we just reshuffling deck chairs while the ship changes course?">If transshipment keeps working this well, do tariffs even matter anymore?
 
 Or ar...</td>
                         <td class="engagement-cell">18</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2034655392953946408" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Thu Mar 19</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="We wrote about the three channels China is using, which products are surging (semiconductors up 66.5%), and why this matters for anyone tracking global trade flows.
 
 https://t.co/t2VNopen3A">We wrote about the three channels China is using, which products are surging (se...</td>
                         <td class="engagement-cell">18</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2034655390739390960" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Thu Mar 19</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="They're not fighting the tariffs.
 
 They're routing around them.
@@ -812,33 +766,30 @@ They're routing around them.
 
 Vietnam, Cambod...</td>
                         <td class="engagement-cell">2</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2034655384661844240" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Thu Mar 19</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="Everyone is staring at the spike. They are missing the mechanical rewiring underneath. Wrote about the three channels, the 1981 Japan parallel, and why this surge lives in a 36 month window: 
 
 https://t.co/Odj6BpmsGn">Everyone is staring at the spike. They are missing the mechanical rewiring under...</td>
                         <td class="engagement-cell">14</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2034654871799177242" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Thu Mar 19</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="China's trade balance chart just developed a vertical cliff. For 10 months it hovered between $85-120B. Then January-February 2026 happened. The line went almost straight up to $190B+. Visualized denial of everything we were told about tariffs slowing them down. https://t.co/FuEavwYFTq">China's trade balance chart just developed a vertical cliff. For 10 months it ho...</td>
                         <td class="engagement-cell">23</td>
-                        <td>0</td>
-                        <td>2</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2034593269016130041" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Thu Mar 19</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="China just posted a record $213.6B trade surplus for Jan-Feb 2026.
 
 Exports up 21.8% YoY.
@@ -847,13 +798,12 @@ How is that even possible? https://t.co/Ii9b2kwdQa">China just posted a record $
 
 Exports up 2...</td>
                         <td class="engagement-cell">64</td>
-                        <td>0</td>
-                        <td>2</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2034487553097949443" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Thu Apr 02</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="Everyone was screaming "Rupee has fallen to 95 against US Dollars!" last week.
 
 Cool. But what the heck does that actually mean for you?
@@ -891,13 +841,12 @@ The RBI absorbed the Fed. You absorbed the 95.">Everyone was screaming "Rupee ha
 
 ...</td>
                         <td class="engagement-cell">27</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2039606226309595542" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Thu Apr 02</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="We've mapped the 60-year journey from ₹4.76 to 94:
 
 → 1966: The Devaluation That Broke the Political System
@@ -912,13 +861,12 @@ Link : https://t.co/0TvJpA3yoz">We've mapped the 60-year journey from ₹4.76 to
 
 → 1966: The Devaluation That...</td>
                         <td class="engagement-cell">17</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2039606228683469073" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Sat Mar 28</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="One month into the 2026 Iran Israel Conflict:
 
 Every major currency has weakened vs USD.
@@ -933,13 +881,12 @@ Feb 27–Mar 27 https://t.co/sSYFmorSWG">One month into the 2026 Iran Israel Con
 
 Every major currency has weakened...</td>
                         <td class="engagement-cell">43</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2037812943711252819" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Sat Apr 04</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="March carved up Indian sectors. Here's the damage:
 
 PSU Bank: -15.61% 
@@ -968,13 +915,12 @@ How do you feel about it?">March carved up Indian sectors. Here's the damage:
 PSU Bank: -15.61% 
 Auto: -12...</td>
                         <td class="engagement-cell">22</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2040285735803088992" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Mon Mar 23</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="Gold doesn't fail as a safe haven. It works differently than textbooks say.
 
 We mapped 4 war shocks: 
@@ -987,13 +933,12 @@ https://t.co/oM2pp70GWU">Gold doesn't fail as a safe haven. It works differently
 
 We ...</td>
                         <td class="engagement-cell">59</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2036196874013778241" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Mon Mar 23</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="Last time gold fell this hard? February 1983.
 
 Iran-Iraq war. Middle East burning. Volcker hiking rates.
@@ -1006,13 +951,12 @@ Different crises. Same desperation.">Last time gold fell this hard? February 198
 
 Iran-Iraq war. Middle East burnin...</td>
                         <td class="engagement-cell">50</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2036196872113758246" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Mon Mar 23</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="Gold crashed 11.8% last week (its worst week since 1983).
 
 &gt; Down from $5,100 to $4,497. 
@@ -1024,22 +968,20 @@ Because when margin calls hit, you don't sell what you want. You sell what you c
 
 &gt; Down from $5,100...</td>
                         <td class="engagement-cell">39</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2036196861116284931" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Mon Mar 16</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="nobody tells you that fighting a war is exactly like a high school group project. trump is doing 99% of the work and the allies are just sitting in the back waiting to take credit https://t.co/bjGp79NKQF">nobody tells you that fighting a war is exactly like a high school group project...</td>
                         <td class="engagement-cell">15</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2033673249822019877" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Mon Apr 06</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="The 85% figure unpacks into specific segments.
 
 e-Shram portal data: 94% of registered informal workers earn under ₹10,000/month. Average productivity sits at $5/hour—less than half the national average of $11.
@@ -1054,13 +996,12 @@ The informal-to-formal shift isn't happening through compliance. It's happening 
 
 e-Shram portal data: 94% of regi...</td>
                         <td class="engagement-cell">34</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2041270719087317282" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Mon Apr 06</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="The Strait handles 21% of global petroleum flows—about 20.5 million barrels per day.
 
 For India, the math is specific. Every $10 rise in crude costs roughly ₹12,000 crore in under-recoveries if retail prices remain frozen. With multiple state elections scheduled, the political default is price freeze.
@@ -1073,13 +1014,12 @@ The INR/USD NDF spreads tell another story. Historically, when Middle East tensi
 
 Energy disruption and capital flow disruption are two different channels. The second one gets less attention.">The Strait handles 21% of global petroleum flows—about 20.5 million barrels per ...</td>
                         <td class="engagement-cell">19</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2041270574245401077" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Mon Apr 06</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="The concentration is striking.
 
 Top 10 spenders—HDFC Bank, Reliance, TCS—account for 34% of FY24's ₹17,967 crore. HDFC Bank alone deployed ₹954 crore. That's roughly equivalent to the bottom 300-400 companies combined.
@@ -1096,31 +1036,28 @@ The spenders are obvious in the data. The recipient ecosystem is where the struc
 
 Top 10 spenders—HDFC Bank, Reliance, TCS—account...</td>
                         <td class="engagement-cell">53</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2041270435925676483" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Mon Apr 06</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="Top 10 = 34% of ₹17,967 Cr CSR. HDFC Bank: ₹954 Cr. Education and healthcare are revenue lines, not charity. 66 PSUs spent ₹3,717 Cr (+19%). The ₹2,329 Cr unspent is strategic carry-forward. Recipients drive the shift. https://t.co/5S929ZFPaA">Top 10 = 34% of ₹17,967 Cr CSR. HDFC Bank: ₹954 Cr. Education and healthcare are...</td>
                         <td class="engagement-cell">31</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2041270099118878803" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Mon Apr 06</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="https://t.co/sBqQLWJvKD">https://t.co/sBqQLWJvKD</td>
                         <td class="engagement-cell">11</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>1</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2041082903426441493" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Fri Mar 27</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="Back to your rent. 
 
 At ₹4.76, importers won. 
@@ -1135,13 +1072,12 @@ At ₹4.76, importers won.
 
 At ₹94, dollar-earners win while...</td>
                         <td class="engagement-cell">30</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2037492037172515132" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Fri Mar 27</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="We've mapped the 60-year fall from ₹4.76 to 94:
 
 → 1966: The Devaluation 
@@ -1156,13 +1092,12 @@ https://t.co/aaLZ8BR0fY">We've mapped the 60-year fall from ₹4.76 to 94:
 → 1966: The Devaluation 
 → 1991...</td>
                         <td class="engagement-cell">27</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2037492039328387224" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Fri Mar 27</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="Your grandfather sent $1,000 home in 1966. 
 
 It became ₹4,760 and bought land. 
@@ -1176,22 +1111,20 @@ To find those missing 90,000 rupees, let's take a look at the rupee's journey fr
 It became ₹4,760 and bought land. 
 ...</td>
                         <td class="engagement-cell">38</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2037492022974767162" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Fri Mar 20</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="Everyone is staring at the spike. They are missing the mechanical rewiring underneath. Wrote about the three channels, the 1981 Japan parallel, and why this surge lives in a 36 month window: https://t.co/Odj6BpmsGn">Everyone is staring at the spike. They are missing the mechanical rewiring under...</td>
                         <td class="engagement-cell">15</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2035096595172298850" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Fri Mar 20</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="USD/INR just hit 93.41 INR. New low for the rupee.
 
 It's now outperformed your standard FD (6.5-7.5%).
@@ -1203,18 +1136,15 @@ That's 8.24% up. Without the lock-in. https://t.co/5Q6oj8FuUZ">USD/INR just hit 
 
 It's now outperformed your s...</td>
                         <td class="engagement-cell">35</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2034913205492039731" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
 
                     <tr>
                         <td class="date-cell">Fri Apr 03</td>
+                        <td><span class="type-badge type-tweet">Post</span></td>
                         <td class="caption-cell" title="https://t.co/fHFzLibIRq">https://t.co/fHFzLibIRq</td>
                         <td class="engagement-cell">17</td>
-                        <td>2</td>
-                        <td>0</td>
-                        <td>1</td>
+                        <td><a href="https://x.com/tradewithaagman/status/2040002964144988283" target="_blank" style="color:#60a5fa;">View →</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -1268,6 +1198,7 @@ It's now outperformed your s...</td>
                         <th>Caption</th>
                         <th>Likes</th>
                         <th>Comments</th>
+                        <th>Link</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -1284,6 +1215,7 @@ Auto and realty followed, both down near 12.5%, crushed by input cost spikes and
 IT was the only sector to close positive, absorbing domestic bid even as foreign selling continued. Pharma and energy showed relative stability, holding to single digit losses as crude volatility created both headwinds and hedges.">Here is how Indian sectors moved from March 2 through April 2, as the US Iran co...</td>
                         <td class="engagement-cell">3</td>
                         <td>0</td>
+                        <td><a href="https://instagram.com/p/DWrXS4LEuwK" target="_blank" style="color:#f472b6;">View →</a></td>
                     </tr>
 
                     <tr>
@@ -1314,6 +1246,7 @@ You get 94.
 The difference? S...</td>
                         <td class="engagement-cell">4</td>
                         <td>0</td>
+                        <td><a href="https://instagram.com/p/DWpSHotkxm-" target="_blank" style="color:#f472b6;">View →</a></td>
                     </tr>
 
                     <tr>
@@ -1336,6 +1269,7 @@ Data: Yahoo Finance | Feb 27 - Mar 31, 2026">One month since the Iran-Israel con
 Every major equity market fell in Mar...</td>
                         <td class="engagement-cell">4</td>
                         <td>0</td>
+                        <td><a href="https://instagram.com/p/DWj9w2fk69x" target="_blank" style="color:#f472b6;">View →</a></td>
                     </tr>
 
                     <tr>
@@ -1362,6 +1296,7 @@ But booming in Mumbai 📈
 Same metal. Two markets....</td>
                         <td class="engagement-cell">5</td>
                         <td>0</td>
+                        <td><a href="https://instagram.com/p/DWj2mqCkiN9" target="_blank" style="color:#f472b6;">View →</a></td>
                     </tr>
 
                     <tr>
@@ -1385,6 +1320,7 @@ Link in bio.
 Yo...</td>
                         <td class="engagement-cell">3</td>
                         <td>0</td>
+                        <td><a href="https://instagram.com/p/DWZD1O2kjl5" target="_blank" style="color:#f472b6;">View →</a></td>
                     </tr>
 
                     <tr>
@@ -1419,6 +1355,7 @@ During an active war.
 Whil...</td>
                         <td class="engagement-cell">5</td>
                         <td>1</td>
+                        <td><a href="https://instagram.com/p/DWUdRQhElsK" target="_blank" style="color:#f472b6;">View →</a></td>
                     </tr>
 
                     <tr>
@@ -1435,6 +1372,7 @@ Comment below, who traded smarter👇">Two AIs. Same order. One paused. One didn
 Mee...</td>
                         <td class="engagement-cell">22</td>
                         <td>2</td>
+                        <td><a href="https://instagram.com/p/DQeVQ-9iZFy" target="_blank" style="color:#f472b6;">View →</a></td>
                     </tr>
 
                     <tr>
@@ -1451,6 +1389,7 @@ Mee...</td>
 [foreigninvestors, indiastockmarket, fiioutflow, indianstocks, rupee, markettrend, smartmoney, stockmarketindia, mutualfunds, foreigninvestment, marketupdate, financeindia, sensex, nifty, indianeconomy ]">$16.8 billion pulled out. $66 billion pumped in. Who’s really winning? Comment b...</td>
                         <td class="engagement-cell">4</td>
                         <td>0</td>
+                        <td><a href="https://instagram.com/p/DPjIydikttj" target="_blank" style="color:#f472b6;">View →</a></td>
                     </tr>
 
                     <tr>
@@ -1469,6 +1408,7 @@ Aagman - Your AI trading platform.
 What’s your take on this? Com...</td>
                         <td class="engagement-cell">3</td>
                         <td>0</td>
+                        <td><a href="https://instagram.com/p/DPWKL8igCsY" target="_blank" style="color:#f472b6;">View →</a></td>
                     </tr>
 
                     <tr>
@@ -1485,6 +1425,7 @@ What’s your take on it? Comment below
 [HSBC, Sensex target, Indian markets, stock market 2026, earnings growth, inflation easing, RBI rate cuts, policy reforms, global inflows, India equities]">HSBC just dropped a bold target: Sensex 94,000 by 2026. Too optimistic or spot o...</td>
                         <td class="engagement-cell">2</td>
                         <td>0</td>
+                        <td><a href="https://instagram.com/p/DPBx7SsEjSU" target="_blank" style="color:#f472b6;">View →</a></td>
                     </tr>
 
                     <tr>
@@ -1503,6 +1444,7 @@ What’s your take on it? Comment below
 [stock-market, Finance, Sensex, NIFTY, M...</td>
                         <td class="engagement-cell">3</td>
                         <td>0</td>
+                        <td><a href="https://instagram.com/p/DO_cj8PkogY" target="_blank" style="color:#f472b6;">View →</a></td>
                     </tr>
 
                     <tr>
@@ -1523,6 +1465,7 @@ What’s your take on it? Comment below
 [Groww IPO, Groww share, Gro...</td>
                         <td class="engagement-cell">9</td>
                         <td>4</td>
+                        <td><a href="https://instagram.com/p/DO_OG5mkrsT" target="_blank" style="color:#f472b6;">View →</a></td>
                     </tr>
 
                     <tr>
@@ -1541,6 +1484,7 @@ jesse livermore’s rise and fall is more than a story—it’s a warning every 
 made and lost fortunes bigger than nations...</td>
                         <td class="engagement-cell">30</td>
                         <td>4</td>
+                        <td><a href="https://instagram.com/p/DO8d33_iT33" target="_blank" style="color:#f472b6;">View →</a></td>
                     </tr>
 
                     <tr>
@@ -1559,6 +1503,7 @@ made and lost fortunes bigger than nations...</td>
 [st...</td>
                         <td class="engagement-cell">21</td>
                         <td>5</td>
+                        <td><a href="https://instagram.com/p/DOsf51ujUnM" target="_blank" style="color:#f472b6;">View →</a></td>
                     </tr>
 
                     <tr>
@@ -1579,6 +1524,7 @@ made and lost fortunes bigger than nations...</td>
 [Aagm...</td>
                         <td class="engagement-cell">25</td>
                         <td>8</td>
+                        <td><a href="https://instagram.com/p/DOixYCCiZPV" target="_blank" style="color:#f472b6;">View →</a></td>
                     </tr>
                 </tbody>
             </table>
