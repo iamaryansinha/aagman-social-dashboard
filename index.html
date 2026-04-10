@@ -299,7 +299,7 @@
 <body>
     <div class="header">
         <h1>Aagman Social Dashboard</h1>
-        <p class="subtitle">Last updated: 2026-04-11 07:50 | Auto-refreshes daily | Click headers to sort</p>
+        <p class="subtitle">Last updated: 2026-04-11 07:53 | Auto-refreshes daily | Click headers to sort</p>
     </div>
     
     <div class="stats-row">
@@ -2808,54 +2808,73 @@ sharp convers...</td>
     
         
         // Sortable table functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.sortable-table').forEach(function(table) {
-                var headers = table.querySelectorAll('th.sortable');
-                var tbody = table.querySelector('tbody');
+        function initSortableTables() {
+            var tables = document.getElementsByClassName('sortable-table');
+            
+            for (var i = 0; i < tables.length; i++) {
+                var table = tables[i];
+                var headers = table.getElementsByClassName('sortable');
                 
-                headers.forEach(function(header, index) {
-                    header.addEventListener('click', function() {
-                        var type = header.dataset.type;
-                        var isAsc = !header.classList.contains('asc');
-                        
-                        // Remove sort classes from all headers in this table
-                        headers.forEach(function(h) { h.classList.remove('asc', 'desc'); });
-                        
-                        // Add sort class to clicked header
-                        header.classList.add(isAsc ? 'asc' : 'desc');
-                        
-                        // Get rows and sort
-                        var rows = Array.from(tbody.querySelectorAll('tr'));
-                        
-                        rows.sort(function(a, b) {
-                            var aVal = a.cells[index].textContent.trim();
-                            var bVal = b.cells[index].textContent.trim();
+                for (var j = 0; j < headers.length; j++) {
+                    (function(header, colIndex) {
+                        header.addEventListener('click', function() {
+                            var tbody = table.getElementsByTagName('tbody')[0];
+                            var rows = Array.prototype.slice.call(tbody.getElementsByTagName('tr'));
+                            var type = header.getAttribute('data-type');
+                            var isAsc = header.getAttribute('data-order') !== 'asc';
                             
-                            if (type === 'number') {
-                                // Parse numbers (remove commas)
-                                var aNum = parseFloat(aVal.replace(/,/g, '')) || 0;
-                                var bNum = parseFloat(bVal.replace(/,/g, '')) || 0;
-                                return isAsc ? aNum - bNum : bNum - aNum;
-                            } else if (type === 'date') {
-                                // Parse dates
-                                var aDate = new Date(aVal);
-                                var bDate = new Date(bVal);
-                                if (isNaN(aDate) || isNaN(bDate)) {
+                            // Update all headers in this table
+                            var allHeaders = table.getElementsByClassName('sortable');
+                            for (var k = 0; k < allHeaders.length; k++) {
+                                allHeaders[k].removeAttribute('data-order');
+                                allHeaders[k].classList.remove('asc', 'desc');
+                            }
+                            
+                            // Mark current header
+                            header.setAttribute('data-order', isAsc ? 'asc' : 'desc');
+                            header.classList.add(isAsc ? 'asc' : 'desc');
+                            
+                            // Sort rows
+                            rows.sort(function(a, b) {
+                                var aCell = a.cells[colIndex];
+                                var bCell = b.cells[colIndex];
+                                
+                                if (!aCell || !bCell) return 0;
+                                
+                                var aVal = aCell.textContent.trim();
+                                var bVal = bCell.textContent.trim();
+                                
+                                if (type === 'number') {
+                                    var aNum = parseInt(aVal.replace(/[^0-9]/g, '')) || 0;
+                                    var bNum = parseInt(bVal.replace(/[^0-9]/g, '')) || 0;
+                                    return isAsc ? aNum - bNum : bNum - aNum;
+                                } else if (type === 'date') {
+                                    var aTime = new Date(aVal).getTime();
+                                    var bTime = new Date(bVal).getTime();
+                                    if (isNaN(aTime) || isNaN(bTime)) {
+                                        return isAsc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+                                    }
+                                    return isAsc ? aTime - bTime : bTime - aTime;
+                                } else {
                                     return isAsc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
                                 }
-                                return isAsc ? aDate - bDate : bDate - aDate;
-                            } else {
-                                // Text sort
-                                return isAsc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+                            });
+                            
+                            // Re-append in new order
+                            for (var r = 0; r < rows.length; r++) {
+                                tbody.appendChild(rows[r]);
                             }
                         });
-                        
-                        // Re-append rows in new order
-                        rows.forEach(function(row) { tbody.appendChild(row); });
-                    });
-                });
-            });
-        });
+                    })(headers[j], j);
+                }
+            }
+        }
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initSortableTables);
+        } else {
+            initSortableTables();
+        }
     </script>
 </body>
 </html>
