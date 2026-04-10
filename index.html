@@ -299,7 +299,7 @@
 <body>
     <div class="header">
         <h1>Aagman Social Dashboard</h1>
-        <p class="subtitle">Last updated: 2026-04-11 07:48 | Auto-refreshes daily | Click headers to sort</p>
+        <p class="subtitle">Last updated: 2026-04-11 07:50 | Auto-refreshes daily | Click headers to sort</p>
     </div>
     
     <div class="stats-row">
@@ -2808,49 +2808,51 @@ sharp convers...</td>
     
         
         // Sortable table functionality
-        document.querySelectorAll('.sortable-table').forEach(table => {
-            const headers = table.querySelectorAll('th.sortable');
-            const tbody = table.querySelector('tbody');
-            
-            headers.forEach((header, index) => {
-                header.addEventListener('click', () => {
-                    const type = header.dataset.type;
-                    const isAsc = !header.classList.contains('asc');
-                    
-                    // Remove sort classes from all headers in this table
-                    headers.forEach(h => h.classList.remove('asc', 'desc'));
-                    
-                    // Add sort class to clicked header
-                    header.classList.add(isAsc ? 'asc' : 'desc');
-                    
-                    // Get rows and sort
-                    const rows = Array.from(tbody.querySelectorAll('tr'));
-                    
-                    rows.sort((a, b) => {
-                        const aVal = a.cells[index].textContent.trim();
-                        const bVal = b.cells[index].textContent.trim();
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.sortable-table').forEach(function(table) {
+                var headers = table.querySelectorAll('th.sortable');
+                var tbody = table.querySelector('tbody');
+                
+                headers.forEach(function(header, index) {
+                    header.addEventListener('click', function() {
+                        var type = header.dataset.type;
+                        var isAsc = !header.classList.contains('asc');
                         
-                        if (type === 'number') {
-                            // Parse numbers (remove commas)
-                            const aNum = parseFloat(aVal.replace(/,/g, '')) || 0;
-                            const bNum = parseFloat(bVal.replace(/,/g, '')) || 0;
-                            return isAsc ? aNum - bNum : bNum - aNum;
-                        } else if (type === 'date') {
-                            // Parse dates
-                            const aDate = new Date(aVal);
-                            const bDate = new Date(bVal);
-                            if (isNaN(aDate) || isNaN(bDate)) {
+                        // Remove sort classes from all headers in this table
+                        headers.forEach(function(h) { h.classList.remove('asc', 'desc'); });
+                        
+                        // Add sort class to clicked header
+                        header.classList.add(isAsc ? 'asc' : 'desc');
+                        
+                        // Get rows and sort
+                        var rows = Array.from(tbody.querySelectorAll('tr'));
+                        
+                        rows.sort(function(a, b) {
+                            var aVal = a.cells[index].textContent.trim();
+                            var bVal = b.cells[index].textContent.trim();
+                            
+                            if (type === 'number') {
+                                // Parse numbers (remove commas)
+                                var aNum = parseFloat(aVal.replace(/,/g, '')) || 0;
+                                var bNum = parseFloat(bVal.replace(/,/g, '')) || 0;
+                                return isAsc ? aNum - bNum : bNum - aNum;
+                            } else if (type === 'date') {
+                                // Parse dates
+                                var aDate = new Date(aVal);
+                                var bDate = new Date(bVal);
+                                if (isNaN(aDate) || isNaN(bDate)) {
+                                    return isAsc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+                                }
+                                return isAsc ? aDate - bDate : bDate - aDate;
+                            } else {
+                                // Text sort
                                 return isAsc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
                             }
-                            return isAsc ? aDate - bDate : bDate - aDate;
-                        } else {
-                            // Text sort
-                            return isAsc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
-                        }
+                        });
+                        
+                        // Re-append rows in new order
+                        rows.forEach(function(row) { tbody.appendChild(row); });
                     });
-                    
-                    // Re-append rows in new order
-                    rows.forEach(row => tbody.appendChild(row));
                 });
             });
         });
