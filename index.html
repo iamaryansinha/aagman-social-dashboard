@@ -252,29 +252,28 @@
             user-select: none;
             position: relative;
             padding-right: 1.5rem !important;
+            transition: background-color 0.2s;
         }
         
         .sortable:hover {
-            color: #e4e4e7;
-            background: #252540;
+            color: #fff;
+            background-color: #252540;
         }
         
         .sortable::after {
-            content: "↕";
-            position: absolute;
-            right: 0.5rem;
-            opacity: 0.5;
+            content: " ⇅";
+            opacity: 0.4;
             font-size: 0.75rem;
         }
         
         .sortable.asc::after {
-            content: "↑";
+            content: " ↑";
             opacity: 1;
             color: #60a5fa;
         }
         
         .sortable.desc::after {
-            content: "↓";
+            content: " ↓";
             opacity: 1;
             color: #60a5fa;
         }
