@@ -247,6 +247,38 @@
         .type-retweet { background: #1e3f1e; color: #4ade80; }
         .type-article { background: #3f1e3f; color: #f472b6; }
         
+        .sortable {
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            padding-right: 1.5rem !important;
+        }
+        
+        .sortable:hover {
+            color: #e4e4e7;
+            background: #252540;
+        }
+        
+        .sortable::after {
+            content: "↕";
+            position: absolute;
+            right: 0.5rem;
+            opacity: 0.5;
+            font-size: 0.75rem;
+        }
+        
+        .sortable.asc::after {
+            content: "↑";
+            opacity: 1;
+            color: #60a5fa;
+        }
+        
+        .sortable.desc::after {
+            content: "↓";
+            opacity: 1;
+            color: #60a5fa;
+        }
+        
         .footer {
             text-align: center;
             padding: 2rem;
@@ -267,7 +299,7 @@
 <body>
     <div class="header">
         <h1>Aagman Social Dashboard</h1>
-        <p class="subtitle">Last updated: 2026-04-11 07:46 | Auto-refreshes daily</p>
+        <p class="subtitle">Last updated: 2026-04-11 07:48 | Auto-refreshes daily | Click headers to sort</p>
     </div>
     
     <div class="stats-row">
@@ -302,13 +334,13 @@
         <div class="chart-card" style="margin-top: 1.5rem;">
             <div class="chart-title">Recent Posts (76 total)</div>
             <div class="table-container">
-            <table class="posts-table">
+            <table class="posts-table sortable-table">
                 <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>Type</th>
-                        <th>Caption</th>
-                        <th>Impressions</th>
+                        <th class="sortable" data-type="date">Date</th>
+                        <th class="sortable" data-type="text">Type</th>
+                        <th class="sortable" data-type="text">Caption</th>
+                        <th class="sortable" data-type="number">Impressions</th>
                         <th>Link</th>
                     </tr>
                 </thead>
@@ -1429,14 +1461,14 @@ It's now outperformed your s...</td>
         <div class="chart-card" style="margin-top: 1.5rem;">
             <div class="chart-title">Recent Posts (18 total)</div>
             <div class="table-container">
-            <table class="posts-table">
+            <table class="posts-table sortable-table">
                 <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>Type</th>
-                        <th>Caption</th>
-                        <th>Likes</th>
-                        <th>Comments</th>
+                        <th class="sortable" data-type="date">Date</th>
+                        <th class="sortable" data-type="text">Type</th>
+                        <th class="sortable" data-type="text">Caption</th>
+                        <th class="sortable" data-type="number">Likes</th>
+                        <th class="sortable" data-type="number">Comments</th>
                         <th>Link</th>
                     </tr>
                 </thead>
@@ -1859,13 +1891,13 @@ made and lost fortunes bigger than nations...</td>
         <div class="chart-card" style="margin-top: 1.5rem;">
             <div class="chart-title">Recent Posts (30 total)</div>
             <div class="table-container">
-            <table class="posts-table">
+            <table class="posts-table sortable-table">
                 <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>Caption</th>
-                        <th>Reactions</th>
-                        <th>Comments</th>
+                        <th class="sortable" data-type="date">Date</th>
+                        <th class="sortable" data-type="text">Caption</th>
+                        <th class="sortable" data-type="number">Reactions</th>
+                        <th class="sortable" data-type="number">Comments</th>
                         <th>Link</th>
                     </tr>
                 </thead>
@@ -2774,6 +2806,54 @@ sharp convers...</td>
             }
         });
     
+        
+        // Sortable table functionality
+        document.querySelectorAll('.sortable-table').forEach(table => {
+            const headers = table.querySelectorAll('th.sortable');
+            const tbody = table.querySelector('tbody');
+            
+            headers.forEach((header, index) => {
+                header.addEventListener('click', () => {
+                    const type = header.dataset.type;
+                    const isAsc = !header.classList.contains('asc');
+                    
+                    // Remove sort classes from all headers in this table
+                    headers.forEach(h => h.classList.remove('asc', 'desc'));
+                    
+                    // Add sort class to clicked header
+                    header.classList.add(isAsc ? 'asc' : 'desc');
+                    
+                    // Get rows and sort
+                    const rows = Array.from(tbody.querySelectorAll('tr'));
+                    
+                    rows.sort((a, b) => {
+                        const aVal = a.cells[index].textContent.trim();
+                        const bVal = b.cells[index].textContent.trim();
+                        
+                        if (type === 'number') {
+                            // Parse numbers (remove commas)
+                            const aNum = parseFloat(aVal.replace(/,/g, '')) || 0;
+                            const bNum = parseFloat(bVal.replace(/,/g, '')) || 0;
+                            return isAsc ? aNum - bNum : bNum - aNum;
+                        } else if (type === 'date') {
+                            // Parse dates
+                            const aDate = new Date(aVal);
+                            const bDate = new Date(bVal);
+                            if (isNaN(aDate) || isNaN(bDate)) {
+                                return isAsc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+                            }
+                            return isAsc ? aDate - bDate : bDate - aDate;
+                        } else {
+                            // Text sort
+                            return isAsc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+                        }
+                    });
+                    
+                    // Re-append rows in new order
+                    rows.forEach(row => tbody.appendChild(row));
+                });
+            });
+        });
     </script>
 </body>
 </html>
