@@ -298,7 +298,7 @@
 <body>
     <div class="header">
         <h1>Aagman Social Dashboard</h1>
-        <p class="subtitle">Last updated: 2026-04-11 07:53 | Auto-refreshes daily | Click headers to sort</p>
+        <p class="subtitle">Last updated: 2026-04-11 07:56 | Auto-refreshes daily | Click headers to sort</p>
     </div>
     
     <div class="stats-row">
@@ -2808,19 +2808,25 @@ sharp convers...</td>
         
         // Sortable table functionality
         function initSortableTables() {
+            console.log('[Sortable] Initializing...');
             var tables = document.getElementsByClassName('sortable-table');
+            console.log('[Sortable] Found', tables.length, 'tables');
             
             for (var i = 0; i < tables.length; i++) {
                 var table = tables[i];
                 var headers = table.getElementsByClassName('sortable');
+                console.log('[Sortable] Table', i, 'has', headers.length, 'sortable headers');
                 
                 for (var j = 0; j < headers.length; j++) {
                     (function(header, colIndex) {
                         header.addEventListener('click', function() {
+                            console.log('[Sortable] Clicked header', colIndex, 'type:', header.getAttribute('data-type'));
                             var tbody = table.getElementsByTagName('tbody')[0];
                             var rows = Array.prototype.slice.call(tbody.getElementsByTagName('tr'));
+                            console.log('[Sortable] Sorting', rows.length, 'rows');
                             var type = header.getAttribute('data-type');
-                            var isAsc = header.getAttribute('data-order') !== 'asc';
+                            var currentOrder = header.getAttribute('data-order');
+                            var isAsc = currentOrder !== 'asc';
                             
                             // Update all headers in this table
                             var allHeaders = table.getElementsByClassName('sortable');
@@ -2863,6 +2869,7 @@ sharp convers...</td>
                             for (var r = 0; r < rows.length; r++) {
                                 tbody.appendChild(rows[r]);
                             }
+                            console.log('[Sortable] Sort complete');
                         });
                     })(headers[j], j);
                 }
